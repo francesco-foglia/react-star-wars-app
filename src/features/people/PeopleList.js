@@ -7,6 +7,7 @@ function PeopleList({ people }) {
       {
         people.map(item =>
           <PeopleItem
+            key={item.name}
             item={item}
           />
         )

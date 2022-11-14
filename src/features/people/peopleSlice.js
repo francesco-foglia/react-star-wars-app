@@ -5,12 +5,14 @@ export const PEOPLE_ACTIONS = {
 };
 
 export const fetchRequest = () => {
+  console.log('fetchRequest');
   return {
     type: PEOPLE_ACTIONS.FETCH_REQUEST,
   }
 };
 
 export const fetchSuccess = (response) => {
+  console.log('fetchSuccess', response);
   return {
     type: PEOPLE_ACTIONS.FETCH_SUCCESS,
     response,
@@ -18,6 +20,7 @@ export const fetchSuccess = (response) => {
 };
 
 export const fetchError = (error) => {
+  console.log('fetchError', error);
   return {
     type: PEOPLE_ACTIONS.FETCH_ERROR,
     error
@@ -53,5 +56,17 @@ export const peopleReducer = (state = initialState, action) => {
     }
   } else {
     return state;
+  }
+};
+
+export const fetchPeople = (url) => {
+  return async (dispatch) => {
+    dispatch(fetchRequest());
+    try {
+      const response = await fetch(url);
+      dispatch(fetchSuccess(response.results));
+    } catch (error) {
+      dispatch(fetchError(error));
+    }
   }
 };
