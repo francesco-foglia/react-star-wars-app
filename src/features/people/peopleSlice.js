@@ -208,13 +208,16 @@ export const { actions, reducer: peopleReducer } = peopleSlice;
 export const { fetchRequest, fetchSuccess, fetchError } = actions;
 
 export const selectItems = (state) => state.people.items;
+export const selectLoading = (state) => state.people.isLoading;
+export const selectError = (state) => state.people.isError;
 
 export const fetchPeople = (url) => {
   return async (dispatch) => {
     dispatch(fetchRequest());
     try {
       const response = await fetch(url);
-      dispatch(fetchSuccess(response.results));
+      const json = await response.json();
+      dispatch(fetchSuccess(json.results));
     } catch (error) {
       dispatch(fetchError(error));
     }
