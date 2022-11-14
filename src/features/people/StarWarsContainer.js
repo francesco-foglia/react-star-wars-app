@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {fetchPeople, selectItems, selectLoading} from "./peopleSlice";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPeople, selectItems, selectLoading } from "./peopleSlice";
 import PeopleSearch from "./PeopleSearch";
 import PeopleList from "./PeopleList";
 
@@ -25,7 +25,7 @@ function StarWarsContainer() {
   return (
     <>
       <PeopleSearch value={search} setValue={setSearchValue} />
-      <button className="button is-success" disabled={isLoading} onClick={onClickHandle}>Search</button>
+      <button className="button is-dark my-5" disabled={isLoading} onClick={onClickHandle}>Search</button>
       {
         !isLoading && people.length > 0 && <PeopleList people={people} />
       }
