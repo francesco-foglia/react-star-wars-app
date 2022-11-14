@@ -50,6 +50,7 @@ export const peopleReducer = (state = initialState, action) => {
 };
 */
 
+/*v2
 export const PEOPLE_ACTIONS = {
   FETCH_REQUEST: 'people/fetchRequest',
   FETCH_SUCCESS: 'people/fetchSuccess',
@@ -59,12 +60,6 @@ export const PEOPLE_ACTIONS = {
 export const fetchRequest = createAction(PEOPLE_ACTIONS.FETCH_REQUEST);
 export const fetchSuccess = createAction(PEOPLE_ACTIONS.FETCH_SUCCESS);
 export const fetchError = createAction(PEOPLE_ACTIONS.FETCH_ERROR);
-
-const initialState = {
-  isLoading: false,
-  isError: false,
-  items: [],
-};
 
 export const peopleReducer = createReducer(initialState, {
   [fetchRequest]: (state, action) => {
@@ -78,6 +73,32 @@ export const peopleReducer = createReducer(initialState, {
     state.isLoading = false;
     state.isError = true;
   },
+});
+ */
+
+
+const initialState = {
+  isLoading: false,
+  isError: false,
+  items: [],
+};
+
+const peopleSlice = createSlice({
+  name: 'people',
+  initialState,
+  reducers: {
+    fetchRequest: (state, action) => {
+      state.isLoading = true;
+    },
+    fetchSuccess(state, action) {
+      state.isLoading = false;
+      state.items = action.payload;
+    },
+    fetchError(state, action) {
+      state.isLoading = false;
+      state.isError = true;
+    }
+  }
 });
 
 export const fetchPeople = (url) => {
