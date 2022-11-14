@@ -1,10 +1,5 @@
-import {createAction} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 
-export const PEOPLE_ACTIONS = {
-  FETCH_REQUEST: 'people/fetchRequest',
-  FETCH_SUCCESS: 'people/fetchSuccess',
-  FETCH_ERROR: 'people/fetchError',
-};
 /*
 export const fetchRequest = () => {
   console.log('fetchRequest');
@@ -28,17 +23,6 @@ export const fetchError = (error) => {
     error
   }
 };
-*/
-
-export const fetchRequest = createAction(PEOPLE_ACTIONS.FETCH_REQUEST);
-export const fetchSuccess = createAction(PEOPLE_ACTIONS.FETCH_SUCCESS);
-export const fetchError = createAction(PEOPLE_ACTIONS.FETCH_ERROR);
-
-const initialState = {
-  isLoading: false,
-  isError: false,
-  items: [],
-};
 
 export const peopleReducer = (state = initialState, action) => {
   const type = action.type;
@@ -59,12 +43,42 @@ export const peopleReducer = (state = initialState, action) => {
       ...state,
       isLoading: false,
       isError: true,
-      items: [],
     }
   } else {
     return state;
   }
 };
+*/
+
+export const PEOPLE_ACTIONS = {
+  FETCH_REQUEST: 'people/fetchRequest',
+  FETCH_SUCCESS: 'people/fetchSuccess',
+  FETCH_ERROR: 'people/fetchError',
+};
+
+export const fetchRequest = createAction(PEOPLE_ACTIONS.FETCH_REQUEST);
+export const fetchSuccess = createAction(PEOPLE_ACTIONS.FETCH_SUCCESS);
+export const fetchError = createAction(PEOPLE_ACTIONS.FETCH_ERROR);
+
+const initialState = {
+  isLoading: false,
+  isError: false,
+  items: [],
+};
+
+export const peopleReducer = createReducer(initialState, {
+  [fetchRequest]: (state, action) => {
+    state.isLoading = true;
+  },
+  [fetchSuccess]: (state, action) => {
+    state.isLoading = false;
+    state.items = action.payload;
+  },
+  [fetchError]: (state, action) => {
+    state.isLoading = false;
+    state.isError = true;
+  },
+});
 
 export const fetchPeople = (url) => {
   return async (dispatch) => {
