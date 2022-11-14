@@ -1,9 +1,11 @@
+import {createAction} from "@reduxjs/toolkit";
+
 export const PEOPLE_ACTIONS = {
   FETCH_REQUEST: 'people/fetchRequest',
   FETCH_SUCCESS: 'people/fetchSuccess',
   FETCH_ERROR: 'people/fetchError',
 };
-
+/*
 export const fetchRequest = () => {
   console.log('fetchRequest');
   return {
@@ -26,6 +28,11 @@ export const fetchError = (error) => {
     error
   }
 };
+*/
+
+export const fetchRequest = createAction(PEOPLE_ACTIONS.FETCH_REQUEST);
+export const fetchSuccess = createAction(PEOPLE_ACTIONS.FETCH_SUCCESS);
+export const fetchError = createAction(PEOPLE_ACTIONS.FETCH_ERROR);
 
 const initialState = {
   isLoading: false,
@@ -39,7 +46,7 @@ export const peopleReducer = (state = initialState, action) => {
   if (type === PEOPLE_ACTIONS.FETCH_REQUEST) {
     return {
       ...state,
-      isLoading: true
+      isLoading: true,
     }
   } else if (type === PEOPLE_ACTIONS.FETCH_SUCCESS) {
     return {
